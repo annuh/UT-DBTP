@@ -82,8 +82,8 @@ public class Visitor implements Callable<VisitorResult> {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// java.sql.SQLException: [Solid JDBC 6.5.0.0 Build 0010] SOLID Database Error 10031: Transaction detected a deadlock, transaction is rolled back
+			//e.printStackTrace();
 		}
 	}
 	
