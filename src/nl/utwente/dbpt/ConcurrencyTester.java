@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -23,8 +26,8 @@ public class ConcurrencyTester {
 	public static final String OPTIMISTIC = "OPTIMISTIC";
 	public static final String PESSIMISTIC = "PESSIMISTIC";
 	
-	public int NUMBER_OF_VISITORS = 2;
-	public int TRANSACTIONS_PER_VISItOR = 10;
+	public int NUMBER_OF_VISITORS = 50;
+	public int TRANSACTIONS_PER_VISITOR = 50;
 
 	public ConcurrencyTester(){
 		conn = ConnectionFactory.getConnection();
@@ -36,17 +39,20 @@ public class ConcurrencyTester {
 		}
 		Random generator = new Random(); 
 
-		for(int r=1;r<100;r=r+1){
+		for(int r=1;r<10;r=r+1){
 			for(int r2=0; r2<5; r2++) {
 				ArrayList<Visitor> visitors = new ArrayList<Visitor>();
 				
 				for(int i=1; i<=NUMBER_OF_VISITORS;i++){
 					ArrayList<Integer> visits2 = new ArrayList<Integer>();
 
-					for(int j=0; j<TRANSACTIONS_PER_VISItOR; j++){
+					for(int j=0; j<TRANSACTIONS_PER_VISITOR; j++){
 						int x = generator.nextInt(r) + 1;
 						visits2.add(x);
 					}
+					
+					Collections.sort(visits2);
+					
 					visitors.add(new Visitor(visits2));
 
 				}
@@ -91,7 +97,7 @@ public class ConcurrencyTester {
 			}
 		}
 		
-		sum = sum * (100/(NUMBER_OF_VISITORS*TRANSACTIONS_PER_VISItOR));
+		//sum = sum * (100/(NUMBER_OF_VISITORS*TRANSACTIONS_PER_VISITOR));
 		
 		// Output results
 		System.out.print(""+sum);
