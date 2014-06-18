@@ -63,8 +63,8 @@ public class ConcurrencyTester {
 					e.printStackTrace();
 				}
 
-				runConcurrencyModus(visitors, PESSIMISTIC);
-				//runConcurrencyModus(visitors, OPTIMISTIC);
+				//runConcurrencyModus(visitors, PESSIMISTIC);
+				runConcurrencyModus(visitors, OPTIMISTIC);
 			}
 		}
 	}
